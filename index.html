@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Task List Manager</title>
+    <!-- Include Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <hr />
+      <h1 class="text-center mb-5">Task List Manager</h1>
+      <hr />
+      <form>
+        <div class="form-group">
+          <label for="task">Task:</label>
+          <input
+            placeholder="Enter a New Task"
+            type="text"
+            class="form-control"
+            id="task"
+            name="task"
+          />
+        </div>
+        <button type="button" class="btn btn-primary" onclick="addTask()">
+          Add Task
+        </button>
+      </form>
+      <br />
+      <hr />
+      <h2>Pending tasks:</h2>
+
+      <ul id="task-list" class="list-group"></ul>
+      <br />
+      <button
+        type="button"
+        class="btn btn-secondary"
+        onclick="clearCompleted()"
+      >
+        Clear Completed
+      </button>
+    </div>
+    <script>
+      function addTask() {
+        // Get the task input
+        var task = document.getElementById("task").value;
+
+        // Create a new list item
+        var li = document.createElement("li");
+        li.classList.add("list-group-item");
+        li.innerHTML = task;
+
+        // Add a checkbox to the list item
+        var checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        li.appendChild(checkbox);
+
+        // Add the list item to the task list
+        document.getElementById("task-list").appendChild(li);
+
+        // Clear the task input
+        document.getElementById("task").value = "";
+      }
+
+      function clearCompleted() {
+        // Get all the list items
+        var items = document
+          .getElementById("task-list")
+          .getElementsByTagName("li");
+
+        // Loop through all the list items
+        for (var i = 0; i < items.length; i++) {
+          // If the item is completed (the checkbox is checked)
+          if (items[i].getElementsByTagName("input")[0].checked) {
+            // Remove the item from the list
+            document.getElementById("task-list").removeChild(items[i]);
+            // Decrement the counter to account for the removed item
+            i--;
+          }
+        }
+      }
+    </script>
+    <!-- Include Bootstrap JS -->
+  </body>
+</html>
